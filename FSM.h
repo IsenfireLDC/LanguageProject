@@ -18,14 +18,14 @@ namespace std {
 class FSM {
 public:
 	//typedef int (Grammar::*next)(int, char);
-	FSM(int*, int(*)(int, char), int*, int);
-	//FSM(int*, int*, int);
+	//FSM(int*, int(*)(int, char), int*, int);
+	FSM();
 	virtual ~FSM();
 
 	int* states;
 	int initialState;
 	int* acceptingStates;
-	static int (*nextState)(int, char);
+	int nextState(int, char);
 	//int nextState(int*, char);
 
 	tuple<bool, string> run(string);

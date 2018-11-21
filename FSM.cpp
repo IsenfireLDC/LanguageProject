@@ -7,6 +7,7 @@
 
 #include "FSM.h"
 #include "Lexer.h"
+#include "Util.h"
 
 #include <string>
 #include <algorithm>
@@ -14,10 +15,13 @@
 
 namespace std {
 
-FSM::FSM(int* states, int (Grammar::*nextState)(int, char), int* acceptingStates, int initialState) {
-	this->states = states;
-	this->nextState = nextState;
-	this->acceptingStates = acceptingStates;
+int states[] = {7, 1, 2, 3, 4, 5, 6, 7};
+int acceptingStates[] = {3, 2, 4, 7};
+int initialState = 1;
+
+FSM::FSM() {
+	this->states = &states[1];
+	this->acceptingStates = &acceptingStates[1];
 	this->initialState = initialState;
 }
 
@@ -26,14 +30,47 @@ FSM::~FSM() {
 //	delete this->nextState;
 //	delete[] this->acceptingStates;
 //	delete this->initialState;
-}
+};
+
+int FSM::nextState(int currentState, char nextChar) {
+	switch (currentState) {
+	case 1:
+		if (Util::isNumber(nextChar)) return 2;
+		break;
+	case 2:
+		if (Util::isNumber(nextChar)) return 2;
+		if (nextChar == '.') return 3;
+		if (tolower(nextChar) == 'e') return 5;
+		break;
+	case 3:
+		if (Util::isNumber(nextChar)) return 4;
+		break;
+	case 4:
+		if (Util::isNumber(nextChar)) return 4;
+		if (tolower(nextChar) == 'e') return 5;
+		break;
+	case 5:
+		if (nextChar == '-' || nextChar == '+') return 6;
+		if (Util::isNumber(nextChar)) return 7;
+		break;
+	case 6:
+		if (Util::isNumber(nextChar)) return 7;
+		break;
+	case 7:
+		if (Util::isNumber(nextChar)) return 7;
+		break;
+	default:
+		return NoNextState;
+	}
+	return NoNextState;
+};
 
 tuple<bool, string> FSM::run(string input) {
 	int currentState = this->initialState;
 	unsigned int i = 0;
 	for (i = 0; i < input.length(); i++) {
 		char c = input.at(i);
-		int state = (*this->*nextState)(currentState, c);
+		int state = this->nextState(currentState, c);
 
 		if (acceptedState(state)) return tuple<bool, string> (true, input.substr(0, i));
 

@@ -20,48 +20,6 @@ using namespace std;
 
 const int NoNextState = -1;
 
-Number::Number() {
-	int states[] = {7, 1, 2, 3, 4, 5, 6, 7};
-	int acceptingStates[] = {3, 2, 4, 7};
-	this->states = &states[1];
-	this->initialState = 1;
-	this->acceptingStates = &acceptingStates[1];
-	this->fsm = FSM(this->states, &this->nextState, this->acceptingStates, this->initialState);
-};
-
-static int Number::nextState(int currentState, char nextChar) {
-	switch (currentState) {
-	case 1:
-		if (Util::isNumber(nextChar)) return 2;
-		break;
-	case 2:
-		if (Util::isNumber(nextChar)) return 2;
-		if (nextChar == '.') return 3;
-		if (tolower(nextChar) == 'e') return 5;
-		break;
-	case 3:
-		if (Util::isNumber(nextChar)) return 4;
-		break;
-	case 4:
-		if (Util::isNumber(nextChar)) return 4;
-		if (tolower(nextChar) == 'e') return 5;
-		break;
-	case 5:
-		if (nextChar == '-' || nextChar == '+') return 6;
-		if (Util::isNumber(nextChar)) return 7;
-		break;
-	case 6:
-		if (Util::isNumber(nextChar)) return 7;
-		break;
-	case 7:
-		if (Util::isNumber(nextChar)) return 7;
-		break;
-	default:
-		return NoNextState;
-	}
-	return NoNextState;
-};
-
 Lexer::Lexer(string input) {
 	this->input = input;
 };
@@ -117,9 +75,9 @@ Token Lexer::parenthesis() {
 	this->column++;
 
 	if (c == '(') {
-		return Token(TokenTypes::LParan, '(', line, column);
+		return Token(TokenTypes::LParan, string(1, '('), line, column);
 	}
-	return Token(TokenTypes::RParan, ')', line, column);
+	return Token(TokenTypes::RParan, string(1, ')'), line, column);
 }
 
 Token Lexer::op() {
@@ -196,11 +154,11 @@ Token Lexer::quote() {
 Token Lexer::number() {
 	int line = this->line;
 	int column = this->column;
-	Number num = Number();
+	FSM num = FSM();
 	string input = this->input.substr(this->position);
 
 	tuple<bool, string> state;
-	state = num.fsm.run(input);
+	state = num.run(input);
 	string str = get<1>(state);
 
 	if (get<0>(state)) {

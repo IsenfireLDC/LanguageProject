@@ -18,7 +18,7 @@ namespace std {
 
 const int NoNextState = -1;
 
-class Grammar {
+/*class Grammar {
 public:
 	Grammar();
 	int* states;
@@ -35,10 +35,10 @@ public:
 	int* states;
 	int initialState;
 	int* acceptingStates;
-	FSM fsm/* = FSM(this->states, Number::nextState, this->acceptingStates, this->initialState)*/;
+	FSM fsm/* = FSM(this->states, Number::nextState, this->acceptingStates, this->initialState)*\/;
 
 	static int nextState(int, char);
-};
+};*/
 
 
 
