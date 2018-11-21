@@ -35,7 +35,7 @@ public:
 	int* states;
 	int initialState;
 	int* acceptingStates;
-	FSM fsm/* = FSM(this->states, Number::nextState, this->acceptingStates, this->initialState)*\/;
+	FSM fsm/\* = FSM(this->states, Number::nextState, this->acceptingStates, this->initialState)*\/;
 
 	static int nextState(int, char);
 };*/
@@ -55,6 +55,7 @@ public:
 	Token op();
 	Token parenthesis();
 	Token quote();
+	Token other();
 
 	vector<Token> allTokens();
 

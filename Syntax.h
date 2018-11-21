@@ -28,8 +28,13 @@ struct unop {
 struct assign {
 	Token op;
 	Token type;
-	Token name; //in
-	Token value; //out  //TODO: See if this will work; add different type?
+	Token in; //name
+	Token out; //value  //TODO: See if this will work; add different type?
+};
+
+class Syntax {
+public:
+	Syntax();
 };
 
 }

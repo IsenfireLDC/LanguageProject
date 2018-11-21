@@ -33,6 +33,7 @@ enum class TokenTypes {
 	LParan,
 	RParan,
 	Quote,
+	Semicolon,
 	EOI,
 	EOL,
 	UnexpectedEnd,

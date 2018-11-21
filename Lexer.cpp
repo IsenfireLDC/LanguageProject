@@ -38,6 +38,10 @@ Token Lexer::nextToken() {
 		return Token(TokenTypes::EOL, string(1, c), this->line, this->column);
 	}
 
+	if (c == ';') {
+		return this->other();
+	}
+
 	if (Util::isQuote(c)) {
 		return this->quote();
 	}
@@ -149,7 +153,7 @@ Token Lexer::quote() {
 	}
 
 	throw Token(TokenTypes::UnexpectedEnd, quote, line, column);
-}
+};
 
 Token Lexer::number() {
 	int line = this->line;
@@ -168,6 +172,17 @@ Token Lexer::number() {
 	}
 
 	return Token(TokenTypes::Null, str, line, column);
+};
+
+Token Lexer::other() {
+	char c = this->input[this->position];
+	int column = this->column;
+
+	this->position++;
+	this->column++;
+
+	if (c == ';') return Token(TokenTypes::Semicolon, string(1, ';'), this->line, column);
+	return Token(TokenTypes::Null, '\000', this->line, column);
 }
 
 vector<Token> Lexer::allTokens() {
