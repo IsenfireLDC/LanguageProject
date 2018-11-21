@@ -12,6 +12,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <iostream>
 
 #include "FSM.h"
 #include "Util.h"
@@ -25,8 +26,9 @@ Lexer::Lexer(string input) {
 };
 
 Token Lexer::nextToken() {
+	cout << "Finding Token at position: " << this->position << " of " << input.length() << endl;
 	if (this->position >= this->input.length()) {
-		return Token(TokenTypes::EOI, '\0', this->line, this->column);
+		return Token(TokenTypes::EOI, "", this->line, this->column);
 	}
 
 	char c = this->input[this->position];
@@ -39,35 +41,42 @@ Token Lexer::nextToken() {
 	}
 
 	if (c == ';') {
+		cout << "Semicolon" << endl;
 		return this->other();
 	}
 
 	if (Util::isQuote(c)) {
+		cout << "Quote" << endl;
 		return this->quote();
 	}
 
 	if (Util::isParenthesis(c)) {
+		cout << "Parenthesis" << endl;
 		return this->parenthesis();
 	}
 
 	if (Util::isNumber(c)) {
+		cout << "Number" << endl;
 		return this->number();
 	}
 
 	if (Util::isOperator(c)) {
+		cout << "Operator" << endl;
 		return this->op();
 	}
 
 	if (Util::isLetter(c)) {
+		cout << "Identifier" << endl;
 		return this->identifier();
 	}
 
 	if (Util::isWhitespace(c)) {
+		cout << "Whitespace" << endl;
 		this->position++;
 		this->column++;
 		return this->nextToken();
 	};
-	throw Token(TokenTypes::Null, string(1, c), this->line, this->column);
+	throw "Error: Null Token\n"/*Token(TokenTypes::Null, string(1, c), this->line, this->column)*/;
 }
 
 Token Lexer::parenthesis() {
@@ -106,7 +115,8 @@ Token Lexer::op() {
 }
 
 Token Lexer::identifier() {
-	string identifier = '\0';
+	cout << "Lexing identifier..." << endl;
+	string identifier = "";
 	int line = this->line;
 	int column = this->column;
 
@@ -152,20 +162,26 @@ Token Lexer::quote() {
 		}
 	}
 
-	throw Token(TokenTypes::UnexpectedEnd, quote, line, column);
+	throw "Error: Unexpected End"/*Token(TokenTypes::UnexpectedEnd, quote, line, column)*/;
 };
 
 Token Lexer::number() {
+	cout << "Lexing number..." << endl;
 	int line = this->line;
 	int column = this->column;
 	FSM num = FSM();
 	string input = this->input.substr(this->position);
+	cout << "Starting FSM..." << endl;
 
 	tuple<bool, string> state;
 	state = num.run(input);
 	string str = get<1>(state);
+	cout << "FSM finished." << endl;
+	cout << get<0>(state) << " " << get<1>(state) << endl;
+	throw "End";
 
 	if (get<0>(state)) {
+		cout << "Adding length..." << endl;
 		this->position+=str.length();
 		this->column+=str.length();
 		return Token(TokenTypes::Number, str, line, column);
@@ -181,8 +197,8 @@ Token Lexer::other() {
 	this->position++;
 	this->column++;
 
-	if (c == ';') return Token(TokenTypes::Semicolon, string(1, ';'), this->line, column);
-	return Token(TokenTypes::Null, '\000', this->line, column);
+	if (c == ';') return Token(TokenTypes::Semicolon, string(1, c), this->line, column);
+	return Token(TokenTypes::Null, string(1, c), this->line, column);
 }
 
 vector<Token> Lexer::allTokens() {
@@ -196,8 +212,4 @@ vector<Token> Lexer::allTokens() {
 	tokens.push_back(token);
 
 	return tokens;
-}
-
-int main() {
-	return 0;
 }

@@ -12,17 +12,17 @@
 #include <string>
 #include <algorithm>
 #include <tuple>
+#include <iostream>
 
 namespace std {
 
 int states[] = {7, 1, 2, 3, 4, 5, 6, 7};
 int acceptingStates[] = {3, 2, 4, 7};
-int initialState = 1;
 
 FSM::FSM() {
-	this->states = &states[1];
-	this->acceptingStates = &acceptingStates[1];
-	this->initialState = initialState;
+	this->states = &std::states[1];
+	this->acceptingStates = &std::acceptingStates[1];
+	this->initialState = 1;
 }
 
 FSM::~FSM() {
@@ -33,6 +33,7 @@ FSM::~FSM() {
 };
 
 int FSM::nextState(int currentState, char nextChar) {
+	cout << "Finding next state after " << currentState << " with " << nextChar << endl;
 	switch (currentState) {
 	case 1:
 		if (Util::isNumber(nextChar)) return 2;
@@ -71,6 +72,7 @@ tuple<bool, string> FSM::run(string input) {
 	for (i = 0; i < input.length(); i++) {
 		char c = input.at(i);
 		int state = this->nextState(currentState, c);
+		cout << "Current state " << state << endl;
 
 		if (acceptedState(state)) return tuple<bool, string> (true, input.substr(0, i));
 
