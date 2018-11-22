@@ -28,7 +28,7 @@ public:
 	int nextState(int, char);
 	//int nextState(int*, char);
 
-	tuple<bool, string> run(string);
+	tuple<int, string> run(string);
 	bool acceptedState(int);
 };
 

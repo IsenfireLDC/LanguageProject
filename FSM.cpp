@@ -66,22 +66,24 @@ int FSM::nextState(int currentState, char nextChar) {
 	return NoNextState;
 };
 
-tuple<bool, string> FSM::run(string input) {
+tuple<int, string> FSM::run(string input) {
 	int currentState = this->initialState;
 	unsigned int i = 0;
-	for (i = 0; i < input.length(); i++) {
+	cout << input.length() << endl;
+	for (i = 0; i < input.length();) {
 		char c = input.at(i);
+		i++;
 		int state = this->nextState(currentState, c);
-		cout << "Current state " << state << endl;
 
-		if (acceptedState(state)) return tuple<bool, string> (true, input.substr(0, i));
+		if (acceptedState(state)) return tuple<bool, string>(currentState, input.substr(0, i));
 
 		if (state == NoNextState) {
+			i--;
 			break;
 		}
 		currentState = state;
 	}
-	return tuple<bool, string> (false, '\000');
+	return tuple<int, string> (currentState, input.substr(0, i));
 }
 
 bool FSM::acceptedState(int nextState) {

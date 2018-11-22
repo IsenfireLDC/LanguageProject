@@ -64,7 +64,7 @@ int main() {
 	cout << "Finished Lexing." << endl;
 	unsigned int i = 0;
 	while (i < tokens.size()) {
-		cout << *(point + (int)tokens[i++].type) << endl;
+		cout << *(point + (int)tokens[i++].type) << " " << tokens[i].value << endl;
 	}
 	cout << "Finished." << endl;
 }

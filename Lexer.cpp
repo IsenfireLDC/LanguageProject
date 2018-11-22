@@ -173,15 +173,14 @@ Token Lexer::number() {
 	string input = this->input.substr(this->position);
 	cout << "Starting FSM..." << endl;
 
-	tuple<bool, string> state;
+	tuple<int, string> state;
 	state = num.run(input);
 	string str = get<1>(state);
 	cout << "FSM finished." << endl;
-	cout << get<0>(state) << " " << get<1>(state) << endl;
-	throw "End";
+	cout << "states " << get<0>(state) << " " << get<1>(state) << "." << endl;
 
 	if (get<0>(state)) {
-		cout << "Adding length..." << endl;
+		cout << "Adding length..." << str.length() << endl;
 		this->position+=str.length();
 		this->column+=str.length();
 		return Token(TokenTypes::Number, str, line, column);
