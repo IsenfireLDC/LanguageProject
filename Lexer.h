@@ -14,7 +14,9 @@
 #ifndef LEXER_H_
 #define LEXER_H_
 
-namespace std {
+using namespace std;
+
+namespace compiler {
 
 const int NoNextState = -1;
 
@@ -54,6 +56,7 @@ public:
 	Token number();
 	Token op();
 	Token parenthesis();
+	Token bracket();
 	Token quote();
 	Token other();
 

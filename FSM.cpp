@@ -14,14 +14,16 @@
 #include <tuple>
 #include <iostream>
 
-namespace std {
+using namespace std;
+
+namespace compiler {
 
 int states[] = {7, 1, 2, 3, 4, 5, 6, 7};
 int acceptingStates[] = {3, 2, 4, 7};
 
 FSM::FSM() {
-	this->states = &std::states[1];
-	this->acceptingStates = &std::acceptingStates[1];
+	this->states = &compiler::states[1];
+	this->acceptingStates = &compiler::acceptingStates[1];
 	this->initialState = 1;
 }
 

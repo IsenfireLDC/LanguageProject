@@ -18,6 +18,7 @@
 #include "Util.h"
 
 using namespace std;
+using namespace compiler;
 
 const int NoNextState = -1;
 
@@ -53,6 +54,11 @@ Token Lexer::nextToken() {
 	if (Util::isParenthesis(c)) {
 		cout << "Parenthesis" << endl;
 		return this->parenthesis();
+	}
+
+	if (Util::isBracket(c)) {
+		cout << "Bracket" << endl;
+		return this->bracket();
 	}
 
 	if (Util::isNumber(c)) {
@@ -91,6 +97,25 @@ Token Lexer::parenthesis() {
 		return Token(TokenTypes::LParan, string(1, '('), line, column);
 	}
 	return Token(TokenTypes::RParan, string(1, ')'), line, column);
+};
+
+Token Lexer::bracket() {
+	int column = this->column;
+	char c = this->input[this->position];
+
+	this->position++;
+	this->column++;
+
+	if (c == '{') {
+		return Token(TokenTypes::LBrace, string(1, c), this->line, column);
+	} else if (c == '}') {
+		return Token(TokenTypes::RBrace, string(1, c), this->line, column);
+	} else if (c == '[') {
+		return Token(TokenTypes::RBracket, string(1, c), this->line, column);
+	} else if (c == ']') {
+		return Token(TokenTypes::LBracket, string(1, c), this->line, column);
+	}
+	return Token(TokenTypes::Null, string(1, c), this->line, column);
 }
 
 Token Lexer::op() {

@@ -13,7 +13,9 @@
 
 #include "Lexer.h"
 
-namespace std {
+using namespace std;
+
+namespace compiler {
 
 class FSM {
 public:

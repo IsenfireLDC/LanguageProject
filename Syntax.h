@@ -2,39 +2,35 @@
  * Syntax.h
  *
  *  Created on: Nov 19, 2018
- *      Author: Ben Klemp - temp
+ *      Author: Ben Klemp
  */
 
 #ifndef SYNTAX_H_
 #define SYNTAX_H_
 
 #include "TokenType.h"
+#include "Lang.h"
 
+#include <vector>
 
-namespace std {
+namespace compiler {
 
-struct binop {
-	Token op;
-	Token out;
-	Token in[2];
-};
+typedef vector<Token> expression;
+typedef vector<op> statement;
+typedef int brackets[3];
 
-struct unop {
-	Token op;
-	Token out;
-	Token in;
-};
-
-struct assign {
-	Token op;
-	Token type;
-	Token in; //name
-	Token out; //value  //TODO: See if this will work; add different type?
+struct line {
+	statement s;
+	brackets b;
 };
 
 class Syntax {
 public:
-	Syntax();
+	Syntax(expression);
+
+	expression tokens;
+
+	line parseline(expression);
 };
 
 }

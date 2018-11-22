@@ -16,6 +16,7 @@
 #include "TokenType.h"
 
 using namespace std;
+using namespace compiler;
 
 string TokenNames[] = {
 	"UnexpectedEnd",
@@ -43,6 +44,10 @@ string TokenNames[] = {
 	"LParan",
 	"RParan",
 	"Quote",
+	"LBrace",
+	"RBrace",
+	"LBracket",
+	"RBracket"
 };
 
 string* point = &TokenNames[2];
@@ -59,7 +64,7 @@ int main() {
 	file >> input;
 
 	Lexer lexer = Lexer(input);
-	cout << "Lexing..." << endl;
+	cout << "Lexing...(verbose)" << endl;
 	vector<Token> tokens = lexer.allTokens();
 	cout << "Finished Lexing." << endl;
 	unsigned int i = 0;

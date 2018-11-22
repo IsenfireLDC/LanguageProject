@@ -10,7 +10,7 @@
 
 #include "TokenType.h"
 
-namespace std {
+namespace compiler {
 
 class Util {
 public:
@@ -80,6 +80,10 @@ public:
 	};
 	static bool isWhitespace(char ch) {
 		if (ch == ' ' || ch == '\t') return true;
+		return false;
+	};
+	static bool isBracket(char ch) {
+		if (ch == '{' || ch == '}' || ch == '[' || ch == ']') return true;
 		return false;
 	};
 };
