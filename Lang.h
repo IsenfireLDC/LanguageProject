@@ -56,6 +56,36 @@ enum class LangType {
 	EOI  //end of input(file)
 };
 
+string reservedWords[] = {
+		"class",
+		"in",
+		"extends",
+		"is",
+		"new",
+		"true",
+		"false",
+		"null",
+		"this"
+};
+
+char typeChars[] = {
+		//access
+		'p',
+		'h',
+		//type
+		'b',
+		'i',
+		'f',
+		'd',
+		's',
+		'a',
+		'c',
+		//modifier
+		'e',
+		'o',
+		't'
+};
+
 class LangToken {
 public:
 	LangToken();

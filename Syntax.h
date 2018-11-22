@@ -29,6 +29,7 @@ public:
 	Syntax(expression);
 
 	expression tokens;
+	vector<string> varnames;
 
 	line parseline(expression);
 };
