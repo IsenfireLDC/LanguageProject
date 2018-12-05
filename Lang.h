@@ -9,89 +9,155 @@
 #define LANG_H_
 
 #include "TokenType.h"
+#include "Syntax.h"
+
+#include <vector>
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
 
 namespace compiler {
 
-struct op;
+struct oper;
 
-struct binop: op {
-	Token op;
-	Token out;
-	Token in[2];
-};
-
-struct unop: op {
-	Token op;
-	Token out;
-	Token in;
-};
-
-struct assign: op {
-	Token op;
-	Token type;
-	Token name; //in
-	expression value; //out  //TODO: See if this will work; add different type?
-};
+typedef vector<Token> expression;
+typedef vector<oper> statement;
+typedef int brackets[3];
 
 enum class LangType {
+	Basic,
+	//classes/functions/methods
 	Class,
+	Space,
+	Extend,
 	FuncCall,
 	Func,
 	Access,
+	//types
 	Bool,
 	Int,
 	Float,
 	Double,
 	String,
 	Char,
+	//literals
+	Num,
+	LString,
+	CChar,
+	//object/array
+	New,
 	Object,
 	Array,
+	//variable name
 	Name,
+	//operators/modifiers
 	Op,
 	Modifier,
-	Const,
+	//TODO:Const,
 	EOL, //end of line
 	EOB, //end of block
 	BOB, //beginning of block
-	EOI  //end of input(file)
+	EOI,  //end of input(file)
+	Null = -1,
+	Unrecognized = -2
 };
 
-string reservedWords[] = {
-		"class",
-		"in",
-		"extends",
-		"is",
-		"new",
-		"true",
-		"false",
-		"null",
-		"this"
+typedef struct oper {
+//public:
+	Token op;
+	LangType type = LangType::Null;
+	/*virtual void print() {
+		cout << "op: ";
+		this->op.print();
+		cout << endl;
+	}
+	virtual ~op() {};*/
+} oper;
+
+/*class binop: public oper {
+public:
+	oper op;
+	Token out;
+	Token in[2];
+	void print() {
+		cout << "binop: ";
+		this->op.op.print();
+		cout << ", ";
+		out.print();
+		cout << ", ";
+		in[0].print();
+		cout << ", ";
+		in[1].print();
+		cout << endl;
+	}
 };
 
-char typeChars[] = {
-		//access
-		'p',
-		'h',
-		//type
-		'b',
-		'i',
-		'f',
-		'd',
-		's',
-		'a',
-		'c',
-		//modifier
-		'e',
-		'o',
-		't'
+class unop: public oper {
+public:
+	oper op;
+	Token out;
+	Token in;
+	void print() {
+		cout << "unop: ";
+		this->op.op.print();
+		cout << ", ";
+		out.print();
+		cout << ", ";
+		in.print();
+		cout << endl;
+	}
 };
+
+class assign: public oper {
+public:
+	oper op;
+	Token type;
+	Token name; //in
+	expression value; //out  //TODO: See if this will work; add different type?
+	void print() {
+		cout << "assign: ";
+		this->op.op.print();
+		cout << ", ";
+		type.print();
+		cout << ", ";
+		name.print();
+		cout << ", " << "value" << endl;
+	}
+};*/
+
+void f(Token);
+
+typedef struct call: public oper {
+//public:
+	Token op;
+	LangType type;
+	expression params;
+	void print() {
+		cout << "call: ";
+		this->op.print();
+		cout << "; ";
+		for_each(params.begin(), params.end(), f);
+		cout << endl;
+	}
+} call;
+
+LangType getReservedType(Token);
+
+bool isEndOfStatement(Token);
+
+extern string reservedWords[2];
+
+extern char typeChars[12];
 
 class LangToken {
 public:
-	LangToken();
+	LangToken(Token, LangType/*, unsigned int*/);
 
 	Token token;
 	LangType type;
+
+	unsigned int position = 0;
 
 };
 
@@ -145,10 +211,10 @@ public:
  * this[obj pointer]
  *
  * operators:
- * <compare as >/</>=/<=/==>
- * <binop as <compare>/+/-/* or />
- * <unop as -/--/++>
- * <assign as =/+=/-=/*= or /=>
+ * <compare as > / < / >= / <= / ==>
+ * <binop as <compare> / + / - / * or />
+ * <unop as - / -- / ++>
+ * <assign as = / += / -= / *= or /=>
  *
  * compile to c++
  *

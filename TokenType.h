@@ -8,7 +8,10 @@
 #ifndef TOKENTYPE_H_
 #define TOKENTYPE_H_
 
+#include "Printing.h"
+
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -49,11 +52,26 @@ enum class TokenTypes {
 class Token {
 public:
 	Token(TokenTypes, string, int, int);
+	Token();
 
 	TokenTypes type;
 	string value;
 	int column;
 	int line;
+
+	void print() {
+		cout << *(p.point + (int)type) << ", " << value << ", " << column << ", " << line << endl;
+	}
+
+	string toString() {
+		string strout = "";
+		strout += *(p.point + (int)type);
+		strout += ", ";
+		strout += value + ", ";
+		strout += column + ", ";
+		strout += line + "\n";
+		return strout;
+	}
 };
 
 } /* namespace std */

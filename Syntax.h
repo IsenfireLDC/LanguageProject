@@ -12,17 +12,24 @@
 #include "Lang.h"
 
 #include <vector>
+#include <exception>
 
 namespace compiler {
 
-typedef vector<Token> expression;
-typedef vector<op> statement;
+struct oper;
+/*
+struct UnrecognizedException: public exception {
+	const char * what () const throw () {
+		return "Unrecognized Syntax Token";
+	}
+} UnrecognizedException;
+*/
 typedef int brackets[3];
 
-struct line {
+/*struct line {
 	statement s;
 	brackets b;
-};
+};*/
 
 class Syntax {
 public:
@@ -31,7 +38,13 @@ public:
 	expression tokens;
 	vector<string> varnames;
 
-	line parseline(expression);
+	unsigned int position = 0;
+
+	oper parsenext();
+
+	oper parsebasic();
+
+	vector<oper*> parseall();
 };
 
 }
