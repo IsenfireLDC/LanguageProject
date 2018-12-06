@@ -12,11 +12,9 @@
 #include "Lang.h"
 
 #include <vector>
-#include <exception>
 
 namespace compiler {
 
-struct oper;
 /*
 struct UnrecognizedException: public exception {
 	const char * what () const throw () {
@@ -33,18 +31,18 @@ typedef int brackets[3];
 
 class Syntax {
 public:
-	Syntax(expression);
+	Syntax(vector<Token>);
 
-	expression tokens;
+	vector<Token> tokens;
 	vector<string> varnames;
 
 	unsigned int position = 0;
 
-	oper parsenext();
+	op parsenext();
 
-	oper parsebasic();
+	op parsebasic();
 
-	vector<oper*> parseall();
+	vector<op*> parseall();
 };
 
 }

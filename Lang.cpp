@@ -6,8 +6,21 @@
  */
 
 #include "Lang.h"
+#include "TokenType.h"
 
 namespace compiler {
+
+op::op(Token op) {
+	this->op = op;
+};
+
+basicop::basicop(Token op) {
+	this->op = op;
+};
+
+basicop::add_param(Token param) {
+	this->params.push_back(param);
+};
 
 LangToken::LangToken(Token token, LangType type/*, unsigned int position*/) {
 	this->token = token;

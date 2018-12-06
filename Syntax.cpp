@@ -13,18 +13,18 @@
 
 namespace compiler {
 
-Syntax::Syntax(expression tokens) {
+Syntax::Syntax(vector<Token> tokens) {
 	this->tokens = tokens;
 };
 
-oper Syntax::parsenext() {
+op Syntax::parsenext() {
 	Token current = this->tokens[this->position];
 	cout << "Parsing token " << current.value;
 	LangType langtype = compiler::getReservedType(current);
 	cout << " of type " << (int)langtype << " at position " << this->position << endl;
 
 	if(langtype == LangType::Unrecognized) {
-		throw UnrecognizedException();
+		throw "Unrecognized";//UnrecognizedException();
 	}
 
 	switch(langtype) {
@@ -41,27 +41,26 @@ oper Syntax::parsenext() {
 	}
 };
 
-oper Syntax::parsebasic() {
+op Syntax::parsebasic() {
 	Token current = this->tokens[this->position++];
 
-	call basic;
-	basic.op.op = current;
-	basic.op.type = LangType::Basic;
+	basicop basic = basicop(current);
+
 	while(!compiler::isEndOfStatement(current)) {
 		current = this->tokens[this->position++];
 		cout << "Pushing token " << this->position << endl;
-		basic.params.push_back(current);
+		basic.add_param(current);
 	}
 	cout << "Basic token done" << endl;
 	return basic;
 };
 
-vector<oper*> Syntax::parseall() {
-	vector<oper*> ops;
+vector<op*> Syntax::parseall() {
+	vector<op*> ops;
 	int i = 0;
 	while (this->position < this->tokens.size()) {
 		cout << "Token " << this->position << endl;
-		oper next = this->parsenext();
+		op next = this->parsenext();
 		//if(next.op.type == TokenTypes::EOI) cout << "End of input reached" << endl; //TODO: Figure this out
 		cout << "Pushing op " << i++ << endl;
 		ops.push_back(&next);

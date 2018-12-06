@@ -19,12 +19,6 @@ using namespace std;
 
 namespace compiler {
 
-struct oper;
-
-typedef vector<Token> expression;
-typedef vector<oper> statement;
-typedef int brackets[3];
-
 enum class LangType {
 	Basic,
 	//classes/functions/methods
@@ -63,72 +57,9 @@ enum class LangType {
 	Unrecognized = -2
 };
 
-typedef struct oper {
-//public:
-	Token op;
-	LangType type = LangType::Null;
-	/*virtual void print() {
-		cout << "op: ";
-		this->op.print();
-		cout << endl;
-	}
-	virtual ~op() {};*/
-} oper;
-
-/*class binop: public oper {
-public:
-	oper op;
-	Token out;
-	Token in[2];
-	void print() {
-		cout << "binop: ";
-		this->op.op.print();
-		cout << ", ";
-		out.print();
-		cout << ", ";
-		in[0].print();
-		cout << ", ";
-		in[1].print();
-		cout << endl;
-	}
-};
-
-class unop: public oper {
-public:
-	oper op;
-	Token out;
-	Token in;
-	void print() {
-		cout << "unop: ";
-		this->op.op.print();
-		cout << ", ";
-		out.print();
-		cout << ", ";
-		in.print();
-		cout << endl;
-	}
-};
-
-class assign: public oper {
-public:
-	oper op;
-	Token type;
-	Token name; //in
-	expression value; //out  //TODO: See if this will work; add different type?
-	void print() {
-		cout << "assign: ";
-		this->op.op.print();
-		cout << ", ";
-		type.print();
-		cout << ", ";
-		name.print();
-		cout << ", " << "value" << endl;
-	}
-};*/
-
 void f(Token);
 
-typedef struct call: public oper {
+/*typedef struct call {
 //public:
 	Token op;
 	LangType type;
@@ -140,7 +71,31 @@ typedef struct call: public oper {
 		for_each(params.begin(), params.end(), f);
 		cout << endl;
 	}
-} call;
+} call;*/
+
+class op {
+public:
+	op(Token);
+
+	Token getOp();
+
+	LangType type = LangType::Null;
+
+private:
+	Token op;
+};
+
+class basicop: public op {
+public:
+	basicop(Token);
+
+	void add_param(Token);
+
+	LangType type = LangType::Basic;
+
+private:
+	vector<Token> params;
+};
 
 LangType getReservedType(Token);
 
@@ -152,7 +107,7 @@ extern char typeChars[12];
 
 class LangToken {
 public:
-	LangToken(Token, LangType/*, unsigned int*/);
+	LangToken(Token, LangType);
 
 	Token token;
 	LangType type;
