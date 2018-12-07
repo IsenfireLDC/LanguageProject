@@ -8,7 +8,7 @@
 #ifndef TEST_H_
 #define TEST_H_
 
-#include "Lang.h"
+//#include "Lang.h"
 
 #include <string>
 
@@ -53,7 +53,8 @@ public:
 
 	std::string* point = &TokenNames[2];
 
-	static void printOper(oper* opin) {
+	/*
+	static void printOper(op* opin) {
 		LangType type = opin->type;
 		switch(type) {
 		case LangType::Basic:
@@ -63,6 +64,7 @@ public:
 			std::cout << "None" << std::endl;
 		}
 	};
+*/
 
 };
 

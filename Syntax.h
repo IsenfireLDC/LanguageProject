@@ -22,12 +22,6 @@ struct UnrecognizedException: public exception {
 	}
 } UnrecognizedException;
 */
-typedef int brackets[3];
-
-/*struct line {
-	statement s;
-	brackets b;
-};*/
 
 class Syntax {
 public:

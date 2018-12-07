@@ -12,6 +12,7 @@
 
 #include <string>
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
 
@@ -58,18 +59,16 @@ public:
 	string value;
 	int column;
 	int line;
-
+/*
 	void print() {
 		cout << *(p.point + (int)type) << ", " << value << ", " << column << ", " << line << endl;
 	}
+*/
 
 	string toString() {
-		string strout = "";
-		strout += *(p.point + (int)type);
-		strout += ", ";
-		strout += value + ", ";
-		strout += column + ", ";
-		strout += line + "\n";
+		const char * format = "%s, %s, %d, %d\n";
+		char * strout;
+		std::sprintf(strout, format, *(p.point + (int)type), value, column, line);
 		return strout;
 	}
 };

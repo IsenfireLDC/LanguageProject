@@ -2,18 +2,17 @@
  * Lang.h
  *
  *  Created on: Nov 21, 2018
- *      Author: Ben Klemp - temp
+ *      Author: Ben Klemp
  */
 
 #ifndef LANG_H_
 #define LANG_H_
 
 #include "TokenType.h"
-#include "Syntax.h"
 
 #include <vector>
 #include <iostream>
-#include <algorithm>
+//#include <algorithm>
 
 using namespace std;
 
@@ -57,41 +56,30 @@ enum class LangType {
 	Unrecognized = -2
 };
 
-void f(Token);
+void f(Token*);
 
-/*typedef struct call {
-//public:
-	Token op;
-	LangType type;
-	expression params;
-	void print() {
-		cout << "call: ";
-		this->op.print();
-		cout << "; ";
-		for_each(params.begin(), params.end(), f);
-		cout << endl;
-	}
-} call;*/
+/*for_each(params.begin(), params.end(), f);*/
 
 class op {
 public:
-	op(Token);
-
-	Token getOp();
+	op(Token*);
 
 	LangType type = LangType::Null;
 
+	Token get_op();
+
 private:
-	Token op;
+	Token op_token;
 };
 
 class basicop: public op {
 public:
-	basicop(Token);
-
-	void add_param(Token);
+	basicop(Token*);
 
 	LangType type = LangType::Basic;
+
+	void add_param(Token*);
+	vector<Token> get_params();
 
 private:
 	vector<Token> params;

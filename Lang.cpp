@@ -2,7 +2,7 @@
  * Lang.cpp
  *
  *  Created on: Nov 28, 2018
- *      Author: Ben Klemp - temp
+ *      Author: Ben Klemp
  */
 
 #include "Lang.h"
@@ -10,17 +10,37 @@
 
 namespace compiler {
 
-op::op(Token op) {
-	this->op = op;
+/*
+ * Class op
+ *
+ * Base class to represent any operator token/statement
+ */
+op::op(Token* op_token) {
+	this->op_token = *op_token;
 };
 
-basicop::basicop(Token op) {
-	this->op = op;
+Token op::get_op() {
+	return this->op_token;
 };
 
-basicop::add_param(Token param) {
-	this->params.push_back(param);
+/*
+ * Class basicop
+ *
+ * Class to represent a basic operator statement
+ */
+basicop::basicop(Token* op_token) : op(op_token) {
+	//this->op_token = *op_token;
 };
+
+void basicop::add_param(Token* param) {
+	this->params.push_back(*param);
+};
+
+vector<Token> basicop::get_params() {
+	return this->params;
+};
+
+
 
 LangToken::LangToken(Token token, LangType type/*, unsigned int position*/) {
 	this->token = token;
@@ -28,8 +48,8 @@ LangToken::LangToken(Token token, LangType type/*, unsigned int position*/) {
 	//this->position = position;
 };
 
-void f(Token in) {
-	in.print();
+void f(Token* in) {
+	cout << in->toString() << endl;
 };
 
 LangType getReservedType(Token in) {
@@ -49,7 +69,7 @@ bool isEndOfStatement(Token in) {
 	return false;
 };
 
-string reservedWords[] = { //12
+string reservedWords[] = { //12, 2
 		/*
 		"class",	//class
 		"space",	//space
