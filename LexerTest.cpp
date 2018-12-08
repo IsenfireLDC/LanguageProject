@@ -39,4 +39,5 @@ int main2() {
 		cout << *(p.point + (int)tokens[i++].type) << " " << tokens[i].value << endl;
 	}
 	cout << "Finished." << endl;
+	return 0;
 }

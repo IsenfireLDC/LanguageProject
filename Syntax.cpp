@@ -18,8 +18,8 @@ Syntax::Syntax(vector<Token> tokens) {
 };
 
 op Syntax::parsenext() {
-	Token current = this->tokens[this->position];
-	cout << "Parsing token " << current.value;
+	Token* current = &this->tokens[this->position];
+	cout << "Parsing token " << current->value;
 	LangType langtype = compiler::getReservedType(current);
 	cout << " of type " << (int)langtype << " at position " << this->position << endl;
 
@@ -35,19 +35,18 @@ op Syntax::parsenext() {
 	default:
 		cout << "Null/unimplemented token" << endl;
 		this->position++;
-		struct oper null;
-		null.oper = current;
+		op null = op(current);
 		return null;
 	}
 };
 
 op Syntax::parsebasic() {
-	Token current = this->tokens[this->position++];
+	Token* current = &this->tokens[this->position++];
 
 	basicop basic = basicop(current);
 
 	while(!compiler::isEndOfStatement(current)) {
-		current = this->tokens[this->position++];
+		current = &this->tokens[this->position++];
 		cout << "Pushing token " << this->position << endl;
 		basic.add_param(current);
 	}

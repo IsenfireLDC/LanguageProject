@@ -63,10 +63,15 @@ void f(Token*);
 class op {
 public:
 	op(Token*);
+	virtual ~op();
+
+	const char* format = "op >> type: %s, op_token: %s";
 
 	LangType type = LangType::Null;
 
 	Token get_op();
+
+	virtual char* toString();
 
 private:
 	Token op_token;
@@ -76,18 +81,22 @@ class basicop: public op {
 public:
 	basicop(Token*);
 
+	const char* format = *op::format + ", params: ";
+
 	LangType type = LangType::Basic;
 
 	void add_param(Token*);
 	vector<Token> get_params();
 
+	char* toString();
+
 private:
 	vector<Token> params;
 };
 
-LangType getReservedType(Token);
+LangType getReservedType(Token*);
 
-bool isEndOfStatement(Token);
+bool isEndOfStatement(Token*);
 
 extern string reservedWords[2];
 

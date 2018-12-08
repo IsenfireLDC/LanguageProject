@@ -65,12 +65,18 @@ public:
 	}
 */
 
-	string toString() {
+	char* toString() {
+		cout << "Token::toString()" << endl;
 		const char * format = "%s, %s, %d, %d\n";
-		char * strout;
-		std::sprintf(strout, format, *(p.point + (int)type), value, column, line);
+		char* strout = new char[255];
+		sprintf(strout, format, *(p.point + (int)type), value, column, line);
 		return strout;
-	}
+	};
+/*
+	char* operator=(Token t) {
+		return t.toString();
+	};
+*/
 };
 
 } /* namespace std */

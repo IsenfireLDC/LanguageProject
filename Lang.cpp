@@ -8,6 +8,10 @@
 #include "Lang.h"
 #include "TokenType.h"
 
+#include <iostream>
+#include <sstream>
+#include <algorithm>
+
 namespace compiler {
 
 /*
@@ -19,8 +23,24 @@ op::op(Token* op_token) {
 	this->op_token = *op_token;
 };
 
+op::~op() {};
+
 Token op::get_op() {
 	return this->op_token;
+};
+
+char* op::toString() {
+	cout << "op::toString()" << endl;
+	int size = this->op_token.value.length() + 255;
+	cout << size << endl;
+	cout << (int)this->op_token.type << endl;
+	cout << this->op_token.line << endl;
+	cout << this->op_token.column << endl;
+	//cout << this->op_token.value << endl;
+	char* strout = new char[size];
+	cout << "strout created" << endl;
+	sprintf(strout, this->format, this->type, this->op_token);
+	return strout;
 };
 
 /*
@@ -40,6 +60,23 @@ vector<Token> basicop::get_params() {
 	return this->params;
 };
 
+char* basicop::toString() {
+	cout << "basicop::toString()" << endl;
+	char* strout = op::toString();
+	cout << "Size: " << sizeof(strout) << endl;
+	ostringstream stream;
+	stream << this->format;
+
+	for(unsigned int i = 0; i < this->params.size(); i++) {
+		cout << "Adding param: " << this->params[i].value << endl;
+		stream << this->params[i].toString() << " ";
+	};
+
+	string str = stream.str();
+
+	return strout;
+}
+
 
 
 LangToken::LangToken(Token token, LangType type/*, unsigned int position*/) {
@@ -52,18 +89,18 @@ void f(Token* in) {
 	cout << in->toString() << endl;
 };
 
-LangType getReservedType(Token in) {
-	string val = in.value;
+LangType getReservedType(Token* in) {
+	string val = in->value;
 
 	if(val == "print" || val == "read") return LangType::Basic;
-	else if(in.type == TokenTypes::EOI) return LangType::EOI;
+	else if(in->type == TokenTypes::EOI) return LangType::EOI;
 	//if(val == "class") return LangType::Class;
 	//else if (val == "this") return LangType::Object;
 	else return LangType::Unrecognized;
 }
 
-bool isEndOfStatement(Token in) {
-	TokenTypes type = in.type;
+bool isEndOfStatement(Token* in) {
+	TokenTypes type = in->type;
 
 	if(type == TokenTypes::EOL || type == TokenTypes::Semicolon || type == TokenTypes::EOI) return true;
 	return false;

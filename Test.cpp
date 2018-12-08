@@ -45,17 +45,19 @@ vector<Token> lex() {
 	return tokens;
 }
 
-vector<oper*> syntax(vector<Token> tokens) {
+vector<op*> syntax(vector<Token> tokens) {
 	Syntax syntax = Syntax(tokens);
 	cout << "Starting Parsing..." << endl;
-	vector<oper*> ops = syntax.parseall();
+	vector<op*> ops = syntax.parseall();
 	cout << "Finished Parsing" << endl;
+	char* str = ops[0]->toString();
+	cout << str << endl;
+	return ops;
 	unsigned int i = 0;
-	/*while (i < ops.size()) {
+	while (i < ops.size()) {
 		cout << "Printing op " << i << endl;
-		//op* currp = ops[i++];
-		//currp->print();
-	}*/
+		cout << ops[i++]->toString() << endl;
+	}
 	return ops;
 }
 
@@ -66,7 +68,7 @@ int main() {
 	cout << "Lexing completed" << endl;
 
 	cout << "Beginning Syntax Analysis..." << endl;
-	vector<oper*> ops = syntax(tokens);
+	vector<op*> ops = syntax(tokens);
 	cout << "Finished Syntax Analysis" << endl;
 	cout << "Finished." << endl;
 }
