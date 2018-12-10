@@ -19,6 +19,10 @@ namespace compiler {
  *
  * Base class to represent any operator token/statement
  */
+op::op() {
+	this->op_token = Token(TokenTypes::Null, "", 0, 0);
+};
+
 op::op(Token* op_token) {
 	this->op_token = *op_token;
 };

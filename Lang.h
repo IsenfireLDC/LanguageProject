@@ -62,6 +62,7 @@ void f(Token*);
 
 class op {
 public:
+	op();
 	op(Token*);
 	virtual ~op();
 

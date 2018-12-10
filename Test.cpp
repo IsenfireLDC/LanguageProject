@@ -52,7 +52,7 @@ vector<op*> syntax(vector<Token> tokens) {
 	cout << "Finished Parsing" << endl;
 	char* str = ops[0]->toString();
 	cout << str << endl;
-	return ops;
+	//return ops;
 	unsigned int i = 0;
 	while (i < ops.size()) {
 		cout << "Printing op " << i << endl;
@@ -66,6 +66,8 @@ int main() {
 	cout << "Beginning Lexical Analysis..." << endl;
 	vector<Token> tokens = lex();
 	cout << "Lexing completed" << endl;
+
+	cout << endl << endl << endl << endl;
 
 	cout << "Beginning Syntax Analysis..." << endl;
 	vector<op*> ops = syntax(tokens);
