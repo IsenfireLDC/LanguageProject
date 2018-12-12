@@ -35,15 +35,15 @@ Token op::get_op() {
 
 char* op::toString() {
 	cout << "op::toString()" << endl;
-	int size = this->op_token.value.length() + 255;
-	cout << size << endl;
-	cout << (int)this->op_token.type << endl;
-	cout << this->op_token.line << endl;
-	cout << this->op_token.column << endl;
+	int size = this->op_token.value.length() + 12 + 2;
 	//cout << this->op_token.value << endl;
 	char* strout = new char[size];
 	cout << "strout created" << endl;
-	sprintf(strout, this->format, this->type, this->op_token);
+	//sprintf(strout, this->format, (int)this->type, this->op_token);
+	stringstream s;
+	s << "op >> type: " << (int)this->type << ", op_token: " << this->op_token.value;
+	strout = &s.str()[0];
+	//cout << "sprintf completed" << endl;
 	return strout;
 };
 
@@ -71,12 +71,14 @@ char* basicop::toString() {
 	ostringstream stream;
 	stream << this->format;
 
-	for(unsigned int i = 0; i < this->params.size(); i++) {
+	for(unsigned int i = 0; i < this->params.size() - 1; i++) {
 		cout << "Adding param: " << this->params[i].value << endl;
+		cout << "Param: " << this->params[i].toString() << endl;
 		stream << this->params[i].toString() << " ";
 	};
 
 	string str = stream.str();
+	cout << str << endl;
 
 	return strout;
 }

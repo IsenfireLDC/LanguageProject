@@ -50,13 +50,14 @@ vector<op*> syntax(vector<Token> tokens) {
 	cout << "Starting Parsing..." << endl;
 	vector<op*> ops = syntax.parseall();
 	cout << "Finished Parsing" << endl;
-	char* str = ops[0]->toString();
-	cout << str << endl;
 	//return ops;
 	unsigned int i = 0;
 	while (i < ops.size()) {
 		cout << "Printing op " << i << endl;
-		cout << ops[i++]->toString() << endl;
+		char* name = ops[i++]->toString();
+		cout << "Token -- ";
+		cout << name;
+		cout << " -- Token" << endl;
 	}
 	return ops;
 }

@@ -11,6 +11,7 @@
 #include "Printing.h"
 
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <cstdio>
 
@@ -67,9 +68,11 @@ public:
 
 	char* toString() {
 		cout << "Token::toString()" << endl;
-		const char * format = "%s, %s, %d, %d\n";
 		char* strout = new char[255];
-		sprintf(strout, format, *(p.point + (int)type), value, column, line);
+		stringstream s;
+		s << *(p.point + (int)type) << ", " << value << ", " << column << ", " << line;
+		strout = &s.str()[0];
+		cout << "Token toString: " << strout << endl;
 		return strout;
 	};
 /*

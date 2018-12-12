@@ -32,9 +32,9 @@ public:
 
 	unsigned int position = 0;
 
-	op parsenext();
+	op* parsenext();
 
-	op parsebasic();
+	op* parsebasic();
 
 	vector<op*> parseall();
 };

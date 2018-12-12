@@ -68,14 +68,17 @@ public:
 
 	const char* format = "op >> type: %s, op_token: %s";
 
-	LangType type = LangType::Null;
-
 	Token get_op();
 
 	virtual char* toString();
 
+	virtual LangType get_type() {
+		return this->type;
+	};
+
 private:
 	Token op_token;
+	LangType type = LangType::Null;
 };
 
 class basicop: public op {
@@ -84,15 +87,18 @@ public:
 
 	const char* format = *op::format + ", params: ";
 
-	LangType type = LangType::Basic;
-
 	void add_param(Token*);
 	vector<Token> get_params();
 
 	char* toString();
 
+	LangType get_type() {
+		return this->type;
+	};
+
 private:
 	vector<Token> params;
+	LangType type = LangType::Basic;
 };
 
 LangType getReservedType(Token*);
