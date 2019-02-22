@@ -81,7 +81,7 @@ char* basicop::toString() {
 	cout << str << endl;
 
 	return strout;
-}
+};
 
 
 

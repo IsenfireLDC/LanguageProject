@@ -68,10 +68,19 @@ public:
 
 	char* toString() {
 		cout << "Token::toString()" << endl;
-		char* strout = new char[255];
+		string type = *(p.point + (int)this->type);
+		int size = type.length() + this->value.length() + sizeof(this->column) + sizeof(this->line);
+		char* strout = new char[size + 11];
+
 		stringstream s;
-		s << *(p.point + (int)type) << ", " << value << ", " << column << ", " << line;
-		strout = &s.str()[0];
+		s << type << ", " << this->value << ", " << this->column << ", " << this->line;
+		string out = s.str();
+
+		cout << "out.length() = " << out.length() << endl;
+		for (unsigned int i = 0; i < out.length(); i++) {
+			strout[i] = out[i];
+		}
+
 		cout << "Token toString: " << strout << endl;
 		return strout;
 	};

@@ -64,10 +64,10 @@ vector<op*> Syntax::parseall() {
 		cout << "Pushing op " << i++ << endl;
 		ops.push_back(next);
 	}
-	op* out = ops[0];
-	cout << out->get_op().value << ", " << out->format << ", " << (int)out->get_type() << endl;
-	op* out2 = static_cast<basicop*>(ops[0]);
-	cout << out2->get_op().value << ", " << out2->format << ", " << (int)out2->get_type() << endl;
+	//op* out = ops[0];
+	//cout << out->get_op().value << ", " << out->format << ", " << (int)out->get_type() << endl;
+	//op* out2 = static_cast<basicop*>(ops[0]);
+	//cout << out2->get_op().value << ", " << out2->format << ", " << (int)out2->get_type() << endl;
 	//vector<Token> outp = out->get_params();
 	//for(i=3;i > 0;i++) {
 	//	cout << "\ttype: " << (int)outp[i].type << " val size: " << outp[i].value.size() << endl;
