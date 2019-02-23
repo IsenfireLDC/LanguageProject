@@ -16,6 +16,7 @@
 #include "TokenType.h"
 
 using namespace std;
+using namespace compiler;
 
 string TokenNames[] = {
 	"UnexpectedEnd",

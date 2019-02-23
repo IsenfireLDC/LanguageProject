@@ -10,7 +10,9 @@
 
 #include "TokenType.h"
 
-namespace std {
+using namespace std;
+
+namespace compiler {
 
 class Util {
 public:

@@ -10,7 +10,9 @@
 
 #include <string>
 
-namespace std {
+using namespace std;
+
+namespace compiler {
 
 enum class TokenTypes {
 	Identifier = 1,

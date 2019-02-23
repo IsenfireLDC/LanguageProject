@@ -14,7 +14,9 @@
 #ifndef LEXER_H_
 #define LEXER_H_
 
-namespace std {
+using namespace std;
+
+namespace compiler {
 
 const int NoNextState = -1;
 

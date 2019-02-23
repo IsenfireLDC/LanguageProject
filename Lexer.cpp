@@ -18,6 +18,7 @@
 #include "Util.h"
 
 using namespace std;
+using namespace compiler;
 
 const int NoNextState = -1;
 
