@@ -16,6 +16,7 @@ namespace compiler {
 
 class Util {
 public:
+	/* ----- Lexer ----- */
 	static bool isLetter(char ch) {
 		int c = (int) ch;
 		if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)) return true;
@@ -82,6 +83,12 @@ public:
 	};
 	static bool isWhitespace(char ch) {
 		if (ch == ' ' || ch == '\t') return true;
+		return false;
+	};
+
+	/* ----- Parser ----- */
+	static bool isNewScope(TokenTypes type) {
+		if (type == TokenTypes::RParan || type == TokenTypes::RBracket || type == TokenTypes::RBrace) return true;
 		return false;
 	};
 };

@@ -5,7 +5,7 @@
  *      Author: Ben Klemp - temp
  */
 
-#include "marked.h"
+#include "Marked.h"
 
 using namespace compiler;
 
@@ -19,4 +19,11 @@ Marked::Marked(Token* lexeme, Marked* container, int line) {
 	this->lexeme = lexeme;
 	this->container = container;
 	this->line = line;
+};
+
+Marked::Marked(Token* lexeme, Marked* container, int line, bool isKeyword) {
+	this->lexeme = lexeme;
+	this->container = container;
+	this->line = line;
+	this->isKeyword = isKeyword;
 };

@@ -50,16 +50,16 @@ public:
 
 	string input;
 
-	Token nextToken();
+	Token* nextToken();
 
-	Token identifier();
-	Token number();
-	Token op();
-	Token parenthesis();
-	Token quote();
-	Token other();
+	Token* identifier();
+	Token* number();
+	Token* op();
+	Token* parenthesis();
+	Token* quote();
+	Token* other();
 
-	vector<Token> allTokens();
+	vector<Token*> allTokens();
 
 private:
 	unsigned int position = 0;
