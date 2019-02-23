@@ -52,6 +52,8 @@ public:
 	int line;
 };
 
+Token* def_token = &Token(TokenTypes::Null, "", 0, 0);
+
 } /* namespace std */
 
 #endif /* TOKENTYPE_H_ */
