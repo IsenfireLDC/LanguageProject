@@ -29,7 +29,7 @@ Lexer::Lexer(string input) {
 Token* Lexer::nextToken() {
 	cout << "Finding Token at position: " << this->position << " of " << input.length() << endl;
 	if (this->position >= this->input.length()) {
-		return &Token(TokenTypes::EOI, "", this->line, this->column);
+		return new Token(TokenTypes::EOI, "", this->line, this->column);
 	}
 
 	char c = this->input[this->position];
@@ -38,7 +38,7 @@ Token* Lexer::nextToken() {
 		this->position++;
 		this->line++;
 		this->column = 0;
-		return &Token(TokenTypes::EOL, string(1, c), this->line, this->column);
+		return new Token(TokenTypes::EOL, string(1, c), this->line, this->column);
 	}
 
 	if (c == ';') {
@@ -88,9 +88,9 @@ Token* Lexer::parenthesis() {
 	this->column++;
 
 	if (c == '(') {
-		return &Token(TokenTypes::LParan, string(1, '('), this->line, column);
+		return new Token(TokenTypes::LParan, string(1, '('), this->line, column);
 	}
-	return &Token(TokenTypes::RParan, string(1, ')'), this->line, column);
+	return new Token(TokenTypes::RParan, string(1, ')'), this->line, column);
 }
 
 Token* Lexer::op() {
@@ -111,7 +111,7 @@ Token* Lexer::op() {
 		type = Util::checkOp(c[0]);
 	};
 
-	return &Token(type, c, line, column);
+	return new Token(type, c, line, column);
 }
 
 Token* Lexer::identifier() {
@@ -129,7 +129,7 @@ Token* Lexer::identifier() {
 		this->position++;
 	}
 
-	return &Token(TokenTypes::Identifier, identifier, line, column);
+	return new Token(TokenTypes::Identifier, identifier, line, column);
 }
 
 Token* Lexer::quote() {
@@ -150,7 +150,7 @@ Token* Lexer::quote() {
 		this->position++;
 		this->column++;
 
-		if (Util::isQuote(c) && !backslash && c == start) return &Token(TokenTypes::Quote, quote, line, column);
+		if (Util::isQuote(c) && !backslash && c == start) return new Token(TokenTypes::Quote, quote, line, column);
 		if (c == '\n') {
 			this->line++;
 			this->column = 0;
@@ -182,10 +182,10 @@ Token* Lexer::number() {
 		cout << "Adding length..." << str.length() << endl;
 		this->position+=str.length();
 		this->column+=str.length();
-		return &Token(TokenTypes::Number, str, this->line, column);
+		return new Token(TokenTypes::Number, str, this->line, column);
 	}
 
-	return &Token(TokenTypes::Null, str, this->line, column);
+	return new Token(TokenTypes::Null, str, this->line, column);
 };
 
 Token* Lexer::other() {
@@ -195,8 +195,8 @@ Token* Lexer::other() {
 	this->position++;
 	this->column++;
 
-	if (c == ';') return &Token(TokenTypes::Semicolon, string(1, c), this->line, column);
-	return &Token(TokenTypes::Null, string(1, c), this->line, column);
+	if (c == ';') return new Token(TokenTypes::Semicolon, string(1, c), this->line, column);
+	return new Token(TokenTypes::Null, string(1, c), this->line, column);
 }
 
 vector<Token*> Lexer::allTokens() {

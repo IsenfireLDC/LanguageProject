@@ -11,7 +11,6 @@ using namespace compiler;
 
 Marked::Marked(Token* lexeme) {
 	this->lexeme = lexeme;
-	this->container = &0;
 	this->line = -1;
 };
 

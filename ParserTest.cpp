@@ -1,10 +1,10 @@
 /*
- * LexerTest.cpp
+ * ParserTest.cpp
  *
- *  Created on: Nov 21, 2018
- *      Author: Ben Klemp
+ *  Created on: Feb 22, 2019
+ *      Author: Ben Klemp - temp
  */
-/*
+
 #include "Lexer.h"
 
 #include <fstream>
@@ -14,6 +14,9 @@
 #include <sstream>
 
 #include "TokenType.h"
+
+#include "Lang.h"
+#include "Marked.h"
 
 using namespace std;
 using namespace compiler;
@@ -48,7 +51,7 @@ string TokenNames[] = {
 
 string* point = &TokenNames[2];
 
-int mainA() {
+int main() {
 	cout << "Running..." << endl;
 	fstream file;
 	file.open("test.mklng", ios::in);
@@ -67,6 +70,16 @@ int mainA() {
 	while (i < tokens.size()) {
 		cout << *(point + (int)tokens[i++]->type) << " " << tokens[i]->value << endl;
 	}
+	cout << "Finished Lexing." << endl;
+
+	cout << "Parsing..." << endl;
+	Parser parser = Parser(tokens);
+	vector<Marked*> marked = parser.markAll();
+
+	i = 0;
+	while(i < marked.size()) {
+		cout << "Lexeme " << marked.at(i)->getLexeme()->value << " at line " << marked.at(i)->getLine() << endl;
+		i++;
+	};
 	cout << "Finished." << endl;
 }
-*/

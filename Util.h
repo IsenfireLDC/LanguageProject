@@ -88,7 +88,7 @@ public:
 
 	/* ----- Parser ----- */
 	static bool isNewScope(TokenTypes type) {
-		if (type == TokenTypes::RParan || type == TokenTypes::RBracket || type == TokenTypes::RBrace) return true;
+		if (type == TokenTypes::RParan /*|| type == TokenTypes::RBracket || type == TokenTypes::RBrace*/) return true;
 		return false;
 	};
 };

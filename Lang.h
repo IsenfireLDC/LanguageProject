@@ -18,11 +18,15 @@ using namespace std;
 
 namespace compiler {
 
-int reservedTotal = 2;
+const int reservedTotal = 2;
 
-string reservedWords[reservedTotal] = {
-		"print",
-		"read"
+struct defaults {
+	Token* def_token = new Token(TokenTypes::Null, "", 0, 0);
+	Marked* def_container = new Marked(defaults::def_token);
+	string reservedWords[reservedTotal] = {
+			"print",
+			"read"
+	};
 };
 
 class Parser {

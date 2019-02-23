@@ -17,7 +17,7 @@ class Marked {
 public:
 	Marked(Token*);
 	Marked(Token*, Marked*, int);
-	Marked(Token*, Marked*, int, bool)
+	Marked(Token*, Marked*, int, bool);
 
 	void setContainer(Marked* container) {
 		this->container = container;
@@ -29,6 +29,13 @@ public:
 		this->isKeyword = isKeyword;
 	};
 
+	Token* getLexeme() {
+		return this->lexeme;
+	};
+	int getLine() {
+		return this->line;
+	};
+
 private:
 	Token* lexeme;
 	Marked* container;
@@ -36,7 +43,7 @@ private:
 	bool isKeyword = false;
 };
 
-Marked* def_container = &Marked(def_token); //TODO: Add separate container class?
+//Marked* def_container = new Marked(Token::def_token); //TODO: Add separate container class?
 
 }
 

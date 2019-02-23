@@ -52,7 +52,7 @@ public:
 	int line;
 };
 
-Token* def_token = &Token(TokenTypes::Null, "", 0, 0);
+//Token* def_token = new Token(TokenTypes::Null, "", 0, 0);
 
 } /* namespace std */
 
