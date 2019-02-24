@@ -32,14 +32,21 @@ public:
 	Token* getLexeme() {
 		return this->lexeme;
 	};
+	Marked* getContainer() {
+		return this->container;
+	};
 	int getLine() {
 		return this->line;
+	};
+	int getLevel() {
+		return this->level;
 	};
 
 private:
 	Token* lexeme;
 	Marked* container;
 	int line;
+	int level;
 	bool isKeyword = false;
 };
 

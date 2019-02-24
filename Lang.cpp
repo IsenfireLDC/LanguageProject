@@ -39,12 +39,13 @@ vector<Marked*> Parser::markAll() {
 	Marked* scope = defaults().def_container;
 	int line = 0;
 	while(current->type != TokenTypes::EOI) {
-		cout << "next " << current->value << ", " << (int)current->type << endl;
-		if (Util::isNewScope(current->type)) { //Check for scope change -- (, [, or {
-			cout << "new scope1" << endl;
+		//cout << "next " << current->value << ", " << (int)current->type << endl;
+		if (current->type == TokenTypes::LParan) {
 			marked.push_back(new Marked(current, scope, line));
-			cout << "new scope" << endl;
-			scope = marked.at(tcurrent + 1);
+			scope = marked.at(tcurrent);
+		} else if (current->type == TokenTypes::RParan) {
+			marked.push_back(new Marked(current, scope, line));
+			scope = scope->getContainer();
 		} else if (current->type == TokenTypes::Identifier) {
 			if(isKeyword(current->value)) {
 				marked.push_back(new Marked(current, scope, line, true));
