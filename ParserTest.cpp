@@ -78,7 +78,7 @@ int main() {
 
 	i = 0;
 	while(i < marked.size()) {
-		cout << "Lexeme " << marked.at(i)->getLexeme()->value << " with scope from " << marked.at(i)->getContainer()->getLine() << " at line " << marked.at(i)->getLine() << endl;
+		cout << "Lexeme " << marked.at(i)->getLexeme()->value << " with scope of level " << marked.at(i)->getLevel() << " from " << marked.at(i)->getContainer()->getLine() << " at line " << marked.at(i)->getLine() << endl;
 		i++;
 	};
 	cout << "Finished." << endl;
