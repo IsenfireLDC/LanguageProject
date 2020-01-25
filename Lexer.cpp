@@ -200,14 +200,13 @@ Token* Lexer::other() {
 }
 
 vector<Token*> Lexer::allTokens() {
-	Token* token = this->nextToken();
+	Token* token;
 	vector<Token*> tokens;
 
-	while (token->type != TokenTypes::EOI) {
-		tokens.push_back(token);
+	do {
 		token = this->nextToken();
-	}
-	tokens.push_back(token);
+		tokens.push_back(token);
+	} while (token.type != TokenTypes::EOI);
 
 	return tokens;
 }
