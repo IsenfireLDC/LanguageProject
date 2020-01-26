@@ -206,7 +206,7 @@ vector<Token*> Lexer::allTokens() {
 	do {
 		token = this->nextToken();
 		tokens.push_back(token);
-	} while (token.type != TokenTypes::EOI);
+	} while (token->type != TokenTypes::EOI);
 
 	return tokens;
 }
