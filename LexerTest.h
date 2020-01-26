@@ -4,8 +4,9 @@
  *  Created on: Nov 21, 2018
  *      Author: Ben Klemp
  */
-/*
+
 #include "Lexer.h"
+#include "Test.h"
 
 #include <fstream>
 #include <iostream>
@@ -18,37 +19,9 @@
 using namespace std;
 using namespace compiler;
 
-string TokenNames[] = {
-	"UnexpectedEnd",
-	"Null",
-	"EOL",
-	"Identifier",
-	"Number",
-	"EOI",
-	"Semicolon",
-	"Add",
-	"Sub",
-	"Mul",
-	"Div",
-	"Power",
-	"Equal",
-	"Greater",
-	"GreaterOrEqual",
-	"Less",
-	"LessOrEqual",
-	"Assign",
-	"AddAssign",
-	"SubAssign",
-	"Incr",
-	"Decr",
-	"LParan",
-	"RParan",
-	"Quote",
-};
-
 string* point = &TokenNames[2];
 
-int mainA() {
+int lexerTest() {
 	cout << "Running..." << endl;
 	fstream file;
 	file.open("test.mklng", ios::in);
@@ -65,8 +38,9 @@ int mainA() {
 	cout << "Finished Lexing." << endl;
 	unsigned int i = 0;
 	while (i < tokens.size()) {
-		cout << *(point + (int)tokens[i++]->type) << " " << tokens[i]->value << endl;
+		cout << *(point + (int)tokens[i]->type) << " " << tokens[i]->value << endl;
+		++i;
 	}
 	cout << "Finished." << endl;
+	return 0;
 }
-*/

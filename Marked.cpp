@@ -13,6 +13,7 @@ Marked::Marked(Token* lexeme) {
 	this->lexeme = lexeme;
 	this->line = -1;
 	this->level = -1;
+	this->container = NULL;
 };
 
 Marked::Marked(Token* lexeme, Marked* container, int line) {
