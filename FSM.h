@@ -24,7 +24,7 @@ public:
 	int* acceptingStates;
 	int nextState(int, char);
 
-	tuple<int, string> run(string);
+	std::tuple<int, std::string> run(std::string);
 	bool acceptedState(int);
 };
 

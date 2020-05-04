@@ -40,37 +40,37 @@ Token* Lexer::nextToken() {
 	};
 
 	if (c == ';') { //semicolon
-		cout << "Semicolon" << endl;
+		std::cout << "Semicolon" << std::endl;
 		return this->other();
 	};
 
 	if (Util::isQuote(c)) { //quotes ", '
-		cout << "Quote" << endl;
+		std::cout << "Quote" << std::endl;
 		return this->quote();
 	};
 
 	if (Util::isParenthesis(c)) { //parentheses ()
-		cout << "Parenthesis" << endl;
+		std::cout << "Parenthesis" << std::endl;
 		return this->parenthesis();
 	};
 
 	if (Util::isNumber(c)) { //digit 0-9
-		cout << "Number" << endl;
+		std::cout << "Number" << std::endl;
 		return this->number();
 	};
 
 	if (Util::isOperator(c)) { //TODO: Check which ops are implemented
-		cout << "Operator" << endl;
+		std::cout << "Operator" << std::endl;
 		return this->op();
 	};
 
 	if (Util::isLetter(c)) { //Alpha character [a-zA-Z]
-		cout << "Identifier" << endl;
+		std::cout << "Identifier" << std::endl;
 		return this->identifier();
 	};
 
 	if (Util::isWhitespace(c)) { //space, tab
-		cout << "Whitespace" << endl;
+		std::cout << "Whitespace" << std::endl;
 		this->position++;
 		this->column++;
 		return this->nextToken();
@@ -167,11 +167,11 @@ Token* Lexer::quote() {
 };
 
 Token* Lexer::number() {
-	cout << "Lexing number..." << endl;
+	std::cout << "Lexing number..." << std::endl;
 	int column = this->column;
 	FSM num = FSM();
 	std::string input = this->input.substr(this->position);
-	cout << "Starting FSM..." << endl;
+	std::cout << "Starting FSM..." << std::endl;
 
 	std::tuple<int, std::string> state;
 	state = num.run(input);

@@ -13,11 +13,11 @@
 
 using namespace compiler;
 
-Parser::Parser(vector<Token*> tokens) {
+Parser::Parser(std::vector<Token*> tokens) {
 	this->tokens = tokens;
 };
 
-bool Parser::isKeyword(string s) {
+bool Parser::isKeyword(std::string s) {
 	for(int i = 0; i < reservedTotal; i++) {
 		if(s == defaults::reservedWords[i]) return true;
 	};
@@ -29,7 +29,7 @@ bool Parser::isKeyword(string s) {
 	return false;
 };
 
-bool Parser::isValidName(string s) { //TODO: Implement name checking
+bool Parser::isValidName(std::string s) { //TODO: Implement name checking
 	return true;
 };
 

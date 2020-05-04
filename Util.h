@@ -30,7 +30,7 @@ public:
 		if (c == 42 || c == 43 || c == 45 || c == 47 || (c >= 60 && c <= 62) || c == 94) return true;
 		return false;
 	};
-	static TokenTypes checkOpPair(string ch) {
+	static TokenTypes checkOpPair(std::string ch) {
 		if (ch[1] == '=') {
 			switch(ch[0]) {
 			case '=':

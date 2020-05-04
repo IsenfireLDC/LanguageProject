@@ -31,14 +31,14 @@ class Parser {
 public:
 	Parser(std::vector<Token*>);
 
-	bool isKeyword(std::string);
-	bool isValidName(std::string);
-
 	std::vector<Marked*> markAll();
 
 private:
+	bool isKeyword(std::string);
+	bool isValidName(std::string);
+
 	std::vector<Token*> tokens;
-	std::vector<string> varnames;
+	std::vector<std::string> varnames;
 };
 
 }
