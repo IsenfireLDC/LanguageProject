@@ -19,13 +19,10 @@
 #include "Lang.h"
 #include "Marked.h"
 
-using namespace std;
 using namespace compiler;
 
-string* point = &TokenNames[2];
-
 int parserTest() {
-	cout << "Running..." << endl;
+	std::cout << "Running..." << std::endl;
 	fstream file;
 	file.open("test.mklng", ios::in);
 
@@ -37,24 +34,24 @@ int parserTest() {
 
 	Lexer lexer = Lexer(input);
 	cout << "Lexing..." << endl;
-	vector<Token*> tokens = lexer.allTokens();
-	cout << "Finished Lexing." << endl;
+	std::vector<Token*> tokens = lexer.allTokens();
+	std::cout << "Finished Lexing." << std::endl;
 	unsigned int i = 0;
 	while (i < tokens.size()) {
-		cout << *(point + (int)tokens[i]->type) << " " << tokens[i]->value << endl;
+		std::cout << *(point + (int)tokens[i]->type) << " " << tokens[i]->value << std::endl;
 		++i;
 	}
-	cout << "Finished Lexing." << endl;
+	std::cout << "Finished Lexing." << std::endl;
 
-	cout << "Parsing..." << endl;
+	std::cout << "Parsing..." << std::endl;
 	Parser parser = Parser(tokens);
-	vector<Marked*> marked = parser.markAll();
+	std::vector<Marked*> marked = parser.markAll();
 
 	i = 0;
 	while(i < marked.size()) {
-		cout << "Lexeme " << marked.at(i)->getLexeme()->value << " with scope of level " << marked.at(i)->getLevel() << " from " << marked.at(i)->getContainer()->getLine() << " at line " << marked.at(i)->getLine() << endl;
+		std::cout << "Lexeme " << marked.at(i)->getLexeme()->value << " with scope of level " << marked.at(i)->getLevel() << " from " << marked.at(i)->getContainer()->getLine() << " at line " << marked.at(i)->getLine() << std::endl;
 		i++;
 	};
-	cout << "Finished." << endl;
+	std::cout << "Finished." << std::endl;
 	return 0;
 }

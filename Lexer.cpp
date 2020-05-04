@@ -17,68 +17,69 @@
 #include "FSM.h"
 #include "Util.h"
 
-using namespace std;
 using namespace compiler;
 
 const int NoNextState = -1;
 
-Lexer::Lexer(string input) {
+Lexer::Lexer(std::string input) {
 	this->input = input;
 };
 
 Token* Lexer::nextToken() {
-	cout << "Finding Token at position: " << this->position << " of " << input.length() << endl;
-	if (this->position >= this->input.length()) {
+	std::cout << "Finding Token at position: " << this->position << " of " << input.length() << std::endl;
+	if (this->position >= this->input.length()) { //end of input
 		return new Token(TokenTypes::EOI, "", this->line, this->column);
-	}
+	};
 
 	char c = this->input[this->position];
 
-	if (c == '\n') {
+	if (c == '\n') { //newline
 		this->position++;
 		this->line++;
 		this->column = 0;
-		return new Token(TokenTypes::EOL, string(1, c), this->line, this->column);
-	}
+		return new Token(TokenTypes::EOL, std::string(1, c), this->line, this->column);
+	};
 
-	if (c == ';') {
+	if (c == ';') { //semicolon
 		cout << "Semicolon" << endl;
 		return this->other();
-	}
+	};
 
-	if (Util::isQuote(c)) {
+	if (Util::isQuote(c)) { //quotes ", '
 		cout << "Quote" << endl;
 		return this->quote();
-	}
+	};
 
-	if (Util::isParenthesis(c)) {
+	if (Util::isParenthesis(c)) { //parentheses ()
 		cout << "Parenthesis" << endl;
 		return this->parenthesis();
-	}
+	};
 
-	if (Util::isNumber(c)) {
+	if (Util::isNumber(c)) { //digit 0-9
 		cout << "Number" << endl;
 		return this->number();
-	}
+	};
 
-	if (Util::isOperator(c)) {
+	if (Util::isOperator(c)) { //TODO: Check which ops are implemented
 		cout << "Operator" << endl;
 		return this->op();
-	}
+	};
 
-	if (Util::isLetter(c)) {
+	if (Util::isLetter(c)) { //Alpha character [a-zA-Z]
 		cout << "Identifier" << endl;
 		return this->identifier();
-	}
+	};
 
-	if (Util::isWhitespace(c)) {
+	if (Util::isWhitespace(c)) { //space, tab
 		cout << "Whitespace" << endl;
 		this->position++;
 		this->column++;
 		return this->nextToken();
 	};
-	throw "Error: Null Token\n"/*Token(TokenTypes::Null, string(1, c), this->line, this->column)*/;
-}
+
+	//Throw an error if the token is not identifiable, maybe just push null token later
+	throw "Error: Null Token\n"/*Token(TokenTypes::Null, std::string(1, c), this->line, this->column)*/;
+};
 
 Token* Lexer::parenthesis() {
 	int column = this->column;
@@ -88,15 +89,15 @@ Token* Lexer::parenthesis() {
 	this->column++;
 
 	if (c == '(') {
-		return new Token(TokenTypes::LParan, string(1, '('), this->line, column);
+		return new Token(TokenTypes::LParan, std::string(1, '('), this->line, column);
 	}
-	return new Token(TokenTypes::RParan, string(1, ')'), this->line, column);
-}
+	return new Token(TokenTypes::RParan, std::string(1, ')'), this->line, column);
+};
 
 Token* Lexer::op() {
 	int line = this->line;
 	int column = this->column;
-	string c = string(1, input[this->position]);
+	std::string c = std::string(1, input[this->position]);
 	TokenTypes type;
 
 	this->position++;
@@ -112,11 +113,11 @@ Token* Lexer::op() {
 	};
 
 	return new Token(type, c, line, column);
-}
+};
 
 Token* Lexer::identifier() {
-	cout << "Lexing identifier..." << endl;
-	string identifier = "";
+	std::cout << "Lexing identifier..." << std::endl;
+	std::string identifier = "";
 	int line = this->line;
 	int column = this->column;
 
@@ -130,10 +131,10 @@ Token* Lexer::identifier() {
 	}
 
 	return new Token(TokenTypes::Identifier, identifier, line, column);
-}
+};
 
 Token* Lexer::quote() {
-	string quote = string(1, input[this->position]);
+	std::string quote = std::string(1, input[this->position]);
 	int line = this->line;
 	int column = this->column;
 
@@ -162,6 +163,7 @@ Token* Lexer::quote() {
 		}
 	}
 
+	//Thrown if the input ends before the quote
 	throw "Error: Unexpected End"/*Token(TokenTypes::UnexpectedEnd, quote, line, column)*/;
 };
 
@@ -169,17 +171,17 @@ Token* Lexer::number() {
 	cout << "Lexing number..." << endl;
 	int column = this->column;
 	FSM num = FSM();
-	string input = this->input.substr(this->position);
+	std::string input = this->input.substr(this->position);
 	cout << "Starting FSM..." << endl;
 
-	tuple<int, string> state;
+	std::tuple<int, std::string> state;
 	state = num.run(input);
-	string str = get<1>(state);
-	cout << "FSM finished." << endl;
-	cout << "states " << get<0>(state) << " " << get<1>(state) << "." << endl;
+	std::string str = get<1>(state);
+	std::cout << "FSM finished." << std::endl;
+	std::cout << "states " << get<0>(state) << " " << get<1>(state) << "." << std::endl;
 
 	if (get<0>(state)) {
-		cout << "Adding length..." << str.length() << endl;
+		std::cout << "Adding length..." << str.length() << std::endl;
 		this->position+=str.length();
 		this->column+=str.length();
 		return new Token(TokenTypes::Number, str, this->line, column);
@@ -195,13 +197,13 @@ Token* Lexer::other() {
 	this->position++;
 	this->column++;
 
-	if (c == ';') return new Token(TokenTypes::Semicolon, string(1, c), this->line, column);
-	return new Token(TokenTypes::Null, string(1, c), this->line, column);
-}
+	if (c == ';') return new Token(TokenTypes::Semicolon, std::string(1, c), this->line, column);
+	return new Token(TokenTypes::Null, std::string(1, c), this->line, column);
+};
 
-vector<Token*> Lexer::allTokens() {
+std::vector<Token*> Lexer::allTokens() {
 	Token* token;
-	vector<Token*> tokens;
+	std::vector<Token*> tokens;
 
 	do {
 		token = this->nextToken();
@@ -209,4 +211,4 @@ vector<Token*> Lexer::allTokens() {
 	} while (token->type != TokenTypes::EOI);
 
 	return tokens;
-}
+};

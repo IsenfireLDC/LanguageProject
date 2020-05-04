@@ -14,8 +14,6 @@
 #ifndef LEXER_H_
 #define LEXER_H_
 
-using namespace std;
-
 namespace compiler {
 
 const int NoNextState = -1;
@@ -46,12 +44,15 @@ public:
 
 class Lexer {
 public:
-	Lexer(string);
+	Lexer(std::string);
 
-	string input;
+	std::string input;
 
 	Token* nextToken();
 
+	std::vector<Token*> allTokens();
+
+private:
 	Token* identifier();
 	Token* number();
 	Token* op();
@@ -59,9 +60,6 @@ public:
 	Token* quote();
 	Token* other();
 
-	vector<Token*> allTokens();
-
-private:
 	unsigned int position = 0;
 	unsigned int line = 0;
 	unsigned int column = 0;

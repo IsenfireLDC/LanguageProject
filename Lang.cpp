@@ -11,7 +11,6 @@
 
 #include "Util.h"
 
-using namespace std;
 using namespace compiler;
 
 Parser::Parser(vector<Token*> tokens) {
@@ -22,9 +21,11 @@ bool Parser::isKeyword(string s) {
 	for(int i = 0; i < reservedTotal; i++) {
 		if(s == defaults().reservedWords[i]) return true;
 	};
-	for(int i = 0; i < this->varnames.size(); i++) {
+
+	for(unsigned int i = 0; i < this->varnames.size(); i++) {
 		if(s == this->varnames.at(i)) return true;
 	};
+
 	return false;
 };
 
@@ -32,8 +33,8 @@ bool Parser::isValidName(string s) { //TODO: Implement name checking
 	return true;
 };
 
-vector<Marked*> Parser::markAll() {
-	vector<Marked*> marked;
+std::vector<Marked*> Parser::markAll() {
+	std::vector<Marked*> marked;
 	int tcurrent = 0;
 	Token* current = this->tokens.at(0);
 	Marked* scope = defaults().def_container;

@@ -16,13 +16,10 @@
 
 #include "TokenType.h"
 
-using namespace std;
 using namespace compiler;
 
-string* point = &TokenNames[2];
-
 int lexerTest() {
-	cout << "Running..." << endl;
+	std::cout << "Running..." << std::endl;
 	fstream file;
 	file.open("test.mklng", ios::in);
 
@@ -33,14 +30,14 @@ int lexerTest() {
 	file >> input;
 
 	Lexer lexer = Lexer(input);
-	cout << "Lexing..." << endl;
-	vector<Token*> tokens = lexer.allTokens();
-	cout << "Finished Lexing." << endl;
+	std::cout << "Lexing..." << std::endl;
+	std::vector<Token*> tokens = lexer.allTokens();
+	std::cout << "Finished Lexing." << std::endl;
 	unsigned int i = 0;
 	while (i < tokens.size()) {
-		cout << *(point + (int)tokens[i]->type) << " " << tokens[i]->value << endl;
+		std::cout << *(point + (int)tokens[i]->type) << " " << tokens[i]->value << std::endl;
 		++i;
 	}
-	cout << "Finished." << endl;
+	std::cout << "Finished." << std::endl;
 	return 0;
 }

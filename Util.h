@@ -10,8 +10,6 @@
 
 #include "TokenType.h"
 
-using namespace std;
-
 namespace compiler {
 
 class Util {

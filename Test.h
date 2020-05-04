@@ -9,7 +9,7 @@
 #define TEST_H_
 
 
-string TokenNames[] = {
+std::string TokenNames[] = {
 	"UnexpectedEnd",
 	"Null",
 	"EOL",
@@ -36,6 +36,8 @@ string TokenNames[] = {
 	"RParan",
 	"Quote",
 };
+
+std::string* point = &TokenNames[2];
 
 
 #endif /* TEST_H_ */
