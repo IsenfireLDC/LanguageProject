@@ -50,8 +50,6 @@ private:
 	bool isKeyword = false;
 };
 
-//Marked* def_container = new Marked(Token::def_token); //TODO: Add separate container class?
-
 }
 
 

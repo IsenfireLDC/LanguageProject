@@ -19,8 +19,6 @@
 
 using namespace compiler;
 
-const int NoNextState = -1;
-
 Lexer::Lexer(std::string input) {
 	this->input = input;
 };
@@ -34,6 +32,7 @@ Token* Lexer::nextToken() {
 	char c = this->input[this->position];
 
 	if (c == '\n') { //newline
+		std::cout << "Newline" << std::endl;
 		this->position++;
 		this->line++;
 		this->column = 0;

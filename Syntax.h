@@ -11,7 +11,7 @@
 #include "TokenType.h"
 
 
-namespace std {
+namespace compiler {
 
 struct binop {
 	Token op;

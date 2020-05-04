@@ -14,16 +14,14 @@
 #include "Marked.h"
 #include "TokenType.h"
 
-using namespace std;
-
 namespace compiler {
 
 const int reservedTotal = 2;
 
-struct defaults {
-	Token* def_token = new Token(TokenTypes::Null, "", 0, 0);
-	Marked* def_container = new Marked(defaults::def_token);
-	string reservedWords[reservedTotal] = {
+static struct defaults {
+	static Token* def_token = new Token(TokenTypes::Null, "", 0, 0);
+	static Marked* def_container = new Marked(defaults::def_token);
+	static std::string reservedWords[reservedTotal] = {
 			"print",
 			"read"
 	};
@@ -31,16 +29,16 @@ struct defaults {
 
 class Parser {
 public:
-	Parser(vector<Token*>);
+	Parser(std::vector<Token*>);
 
-	bool isKeyword(string);
-	bool isValidName(string);
+	bool isKeyword(std::string);
+	bool isValidName(std::string);
 
-	vector<Marked*> markAll();
+	std::vector<Marked*> markAll();
 
 private:
-	vector<Token*> tokens;
-	vector<string> varnames;
+	std::vector<Token*> tokens;
+	std::vector<string> varnames;
 };
 
 }

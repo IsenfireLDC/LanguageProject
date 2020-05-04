@@ -37,7 +37,7 @@ std::string TokenNames[] = {
 	"Quote",
 };
 
-std::string* point = &TokenNames[2];
+std::string* point = &TokenNames[2];  //allows for 'negative indexes' for error types
 
 
 #endif /* TEST_H_ */

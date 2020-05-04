@@ -13,22 +13,16 @@
 
 #include "Lexer.h"
 
-using namespace std;
-
 namespace compiler {
 
 class FSM {
 public:
-	//typedef int (Grammar::*next)(int, char);
-	//FSM(int*, int(*)(int, char), int*, int);
 	FSM();
-	virtual ~FSM();
 
 	int* states;
 	int initialState;
 	int* acceptingStates;
 	int nextState(int, char);
-	//int nextState(int*, char);
 
 	tuple<int, string> run(string);
 	bool acceptedState(int);

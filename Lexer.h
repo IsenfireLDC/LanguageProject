@@ -18,30 +18,6 @@ namespace compiler {
 
 const int NoNextState = -1;
 
-/*class Grammar {
-public:
-	Grammar();
-	int* states;
-	int intialState;
-	int* acceptingStates;
-	FSM fsm;
-
-	static int nextState(int, char) { return -1; };
-};
-
-class Number: public Grammar {
-public:
-	Number();
-	int* states;
-	int initialState;
-	int* acceptingStates;
-	FSM fsm/\* = FSM(this->states, Number::nextState, this->acceptingStates, this->initialState)*\/;
-
-	static int nextState(int, char);
-};*/
-
-
-
 class Lexer {
 public:
 	Lexer(std::string);

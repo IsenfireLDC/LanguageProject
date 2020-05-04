@@ -8,11 +8,9 @@
 
 #include "TokenType.h"
 
-using namespace std;
-
 namespace compiler {
 
-Token::Token(TokenTypes type, string value, int column, int line) {
+Token::Token(TokenTypes type, std::string value, int column, int line) {
 	this->type = type;
 	this->value = value;
 	this->column = column;

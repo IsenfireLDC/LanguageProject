@@ -10,8 +10,6 @@
 
 #include <string>
 
-using namespace std;
-
 namespace compiler {
 
 enum class TokenTypes {
@@ -44,15 +42,13 @@ enum class TokenTypes {
 
 class Token {
 public:
-	Token(TokenTypes, string, int, int);
+	Token(TokenTypes, std::string, int, int);
 
 	TokenTypes type;
-	string value;
+	std::string value;
 	int column;
 	int line;
 };
-
-//Token* def_token = new Token(TokenTypes::Null, "", 0, 0);
 
 } /* namespace std */
 

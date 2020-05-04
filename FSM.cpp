@@ -14,28 +14,19 @@
 #include <tuple>
 #include <iostream>
 
-using namespace std;
-
 namespace compiler {
 
-int states[] = {7, 1, 2, 3, 4, 5, 6, 7};
-int acceptingStates[] = {3, 2, 4, 7};
+static int states[] = {7, 1, 2, 3, 4, 5, 6, 7};
+static int acceptingStates[] = {3, 2, 4, 7};
 
 FSM::FSM() {
 	this->states = &compiler::states[1];
 	this->acceptingStates = &compiler::acceptingStates[1];
 	this->initialState = 1;
-}
-
-FSM::~FSM() {
-//	delete[] this->states;
-//	delete this->nextState;
-//	delete[] this->acceptingStates;
-//	delete this->initialState;
 };
 
 int FSM::nextState(int currentState, char nextChar) {
-	cout << "Finding next state after " << currentState << " with " << nextChar << endl;
+	std::cout << "Finding next state after " << currentState << " with " << nextChar << std::endl;
 	switch (currentState) {
 	case 1:
 		if (Util::isNumber(nextChar)) return 2;
@@ -62,22 +53,21 @@ int FSM::nextState(int currentState, char nextChar) {
 	case 7:
 		if (Util::isNumber(nextChar)) return 7;
 		break;
-	default:
-		return NoNextState;
-	}
+	};
+
 	return NoNextState;
 };
 
-tuple<int, string> FSM::run(string input) {
+std::tuple<int, std::string> FSM::run(std::string input) {
 	int currentState = this->initialState;
 	unsigned int i = 0;
-	cout << input.length() << endl;
+	std::cout << input.length() << std::endl;
 	for (i = 0; i < input.length();) {
 		char c = input.at(i);
 		i++;
 		int state = this->nextState(currentState, c);
 
-		if (acceptedState(state)) return tuple<bool, string>(currentState, input.substr(0, i));
+		if (acceptedState(state)) return std::tuple<bool, std::string>(currentState, input.substr(0, i));
 
 		if (state == NoNextState) {
 			i--;
@@ -85,7 +75,7 @@ tuple<int, string> FSM::run(string input) {
 		}
 		currentState = state;
 	}
-	return tuple<int, string> (currentState, input.substr(0, i));
+	return std::tuple<int, std::string> (currentState, input.substr(0, i));
 }
 
 bool FSM::acceptedState(int nextState) {
