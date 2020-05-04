@@ -19,7 +19,7 @@ Parser::Parser(std::vector<Token*> tokens) {
 
 bool Parser::isKeyword(std::string s) {
 	for(int i = 0; i < reservedTotal; i++) {
-		if(s == defaults::reservedWords[i]) return true;
+		if(s == compiler::reservedWords[i]) return true;
 	};
 
 	for(unsigned int i = 0; i < this->varnames.size(); i++) {
@@ -37,7 +37,7 @@ std::vector<Marked*> Parser::markAll() {
 	std::vector<Marked*> marked;
 	int tcurrent = 0;
 	Token* current = this->tokens.at(0);
-	Marked* scope = defaults::def_container;
+	Marked* scope = compiler::def_container;
 	int line = 0;
 	while(current->type != TokenTypes::EOI) {
 		//cout << "next " << current->value << ", " << (int)current->type << endl;

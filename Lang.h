@@ -18,13 +18,11 @@ namespace compiler {
 
 const int reservedTotal = 2;
 
-static struct defaults {
-	static Token* def_token = new Token(TokenTypes::Null, "", 0, 0);
-	static Marked* def_container = new Marked(defaults::def_token);
-	static std::string reservedWords[reservedTotal] = {
-			"print",
-			"read"
-	};
+static Token* def_token = new Token(TokenTypes::Null, "", 0, 0);
+static Marked* def_container = new Marked(compiler::def_token);
+static std::string reservedWords[reservedTotal] = {
+	"print",
+	"read"
 };
 
 class Parser {

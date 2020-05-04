@@ -176,11 +176,11 @@ Token* Lexer::number() {
 
 	std::tuple<int, std::string> state;
 	state = num.run(input);
-	std::string str = get<1>(state);
+	std::string str = std::get<1>(state);
 	std::cout << "FSM finished." << std::endl;
-	std::cout << "states " << get<0>(state) << " " << get<1>(state) << "." << std::endl;
+	std::cout << "states " << std::get<0>(state) << " " << std::get<1>(state) << "." << std::endl;
 
-	if (get<0>(state)) {
+	if (std::get<0>(state)) {
 		std::cout << "Adding length..." << str.length() << std::endl;
 		this->position+=str.length();
 		this->column+=str.length();
