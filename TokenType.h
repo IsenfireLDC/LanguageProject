@@ -12,6 +12,7 @@
 
 namespace compiler {
 
+//TODO: Reorganize this
 enum class TokenTypes {
 	Identifier = 1,
 	Number = 2,
@@ -19,7 +20,7 @@ enum class TokenTypes {
 	Sub = 6,
 	Mul = 7,
 	Div = 8,
-	Power = 9,
+	Xor = 9,
 	Greater = 11,
 	GreaterOrEqual = 12,
 	Less = 13,
@@ -37,7 +38,10 @@ enum class TokenTypes {
 	EOI = 3,
 	EOL = 0,
 	UnexpectedEnd = -2,
-	Null = -1
+	Null = -1,
+	And = 23,
+	Or = 24,
+	Not = 25
 };
 
 class Token {

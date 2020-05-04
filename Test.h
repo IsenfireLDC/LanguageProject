@@ -21,7 +21,7 @@ std::string TokenNames[] = {
 	"Sub",
 	"Mul",
 	"Div",
-	"Power",
+	"Xor",
 	"Equal",
 	"Greater",
 	"GreaterOrEqual",
@@ -35,6 +35,9 @@ std::string TokenNames[] = {
 	"LParan",
 	"RParan",
 	"Quote",
+	"And",
+	"Or",
+	"Not"
 };
 
 std::string* point = &TokenNames[2];  //allows for 'negative indexes' for error types

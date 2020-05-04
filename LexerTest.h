@@ -20,13 +20,13 @@ using namespace compiler;
 
 int lexerTest() {
 	std::cout << "Running..." << std::endl;
-	fstream file;
-	file.open("test.mklng", ios::in);
+	std::fstream file;
+	file.open("test.mklng", std::ios::in);
 
-	stringstream buffer;
+	std::stringstream buffer;
 	buffer << file.rdbuf();
 
-	string input = buffer.str();
+	std::string input = buffer.str();
 	file >> input;
 
 	Lexer lexer = Lexer(input);

@@ -23,17 +23,17 @@ using namespace compiler;
 
 int parserTest() {
 	std::cout << "Running..." << std::endl;
-	fstream file;
-	file.open("test.mklng", ios::in);
+	std::fstream file;
+	file.open("test.mklng", std::ios::in);
 
-	stringstream buffer;
+	std::stringstream buffer;
 	buffer << file.rdbuf();
 
-	string input = buffer.str();
+	std::string input = buffer.str();
 	file >> input;
 
 	Lexer lexer = Lexer(input);
-	cout << "Lexing..." << endl;
+	std::cout << "Lexing..." << std::endl;
 	std::vector<Token*> tokens = lexer.allTokens();
 	std::cout << "Finished Lexing." << std::endl;
 	unsigned int i = 0;

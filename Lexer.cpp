@@ -23,6 +23,7 @@ Lexer::Lexer(std::string input) {
 	this->input = input;
 };
 
+//TODO: Add comments
 Token* Lexer::nextToken() {
 	std::cout << "Finding Token at position: " << this->position << " of " << input.length() << std::endl;
 	if (this->position >= this->input.length()) { //end of input
@@ -59,7 +60,7 @@ Token* Lexer::nextToken() {
 		return this->number();
 	};
 
-	if (Util::isOperator(c)) { //TODO: Check which ops are implemented
+	if (Util::isOperator(c)) { //symbols +, -, =, >, <, *, /, ^, &, |, ~
 		std::cout << "Operator" << std::endl;
 		return this->op();
 	};
@@ -132,7 +133,7 @@ Token* Lexer::identifier() {
 	return new Token(TokenTypes::Identifier, identifier, line, column);
 };
 
-Token* Lexer::quote() {
+Token* Lexer::quote() { //Will not stop a quote on a backslashed character, but does not do anything for escape characters (\ character stays in the string)
 	std::string quote = std::string(1, input[this->position]);
 	int line = this->line;
 	int column = this->column;

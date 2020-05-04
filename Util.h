@@ -27,7 +27,7 @@ public:
 	};
 	static bool isOperator(char ch) {
 		int c = (int) ch;
-		if (c == 42 || c == 43 || c == 45 || c == 47 || (c >= 60 && c <= 62) || c == 94) return true;
+		if (c == 38 || c == 42 || c == 43 || c == 45 || c == 47 || (c >= 60 && c <= 62) || c == 94 || c == 124 || c == 126) return true;
 		return false;
 	};
 	static TokenTypes checkOpPair(std::string ch) {
@@ -65,7 +65,13 @@ public:
 		case '/':
 			return TokenTypes::Div;
 		case '^':
-			return TokenTypes::Power;
+			return TokenTypes::Xor;
+		case '&':
+			return TokenTypes::And;
+		case '|':
+			return TokenTypes::Or;
+		case '~':
+			return TokenTypes::Not;
 		default:
 			return TokenTypes::Null;
 		}
